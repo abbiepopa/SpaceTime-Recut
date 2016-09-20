@@ -305,3 +305,62 @@ t.test(all[which(all$task == "tdja" & all$comp == "n" & all$DX =="22q"), "tdjv_f
 all22q<-all[which(all$DX == "22q"),]
 
 failure_rate<-table(all$studyid, all$task_comp)
+
+###Wide Format for Failure Rate###
+
+mycols<-c("studyid","gender", "DX", "age","task","comp","task_comp", "final_ratio")
+
+amc_wide<-rbind(amcn[which(amcn$level == 0),mycols], amc[,mycols])
+
+apc_wide<-rbind(apcn[which(apcn$level == 0),mycols], apc[,mycols])
+
+tdjv_wide<-rbind(tdjvn[which(tdjvn$level == 0),mycols], tdjv[,mycols])
+
+tdja_wide<-rbind(tdjan[which(tdjan$level == 0),mycols], tdja[,mycols])
+
+colnames(amc_wide)<-c("studyid","gender","DX", "age", "task", "comp_amc","task_comp","final_ratio_amc")
+
+colnames(apc_wide)<-c("studyid","gender","DX", "age", "task", "comp_apc","task_comp","final_ratio_apc")
+
+colnames(tdjv_wide)<-c("studyid","gender","DX", "age", "task", "comp_tdjv","task_comp","final_ratio_tdjv")
+
+colnames(tdja_wide)<-c("studyid","gender","DX", "age", "task", "comp_tdja","task_comp","final_ratio_tdja")
+
+all_wide<-merge(amc_wide, apc_wide[,c("studyid","comp_apc","final_ratio_apc")], by = "studyid",all.x=T, all.y=T)
+all_wide<-merge(all_wide, tdjv_wide[,c("studyid","comp_tdjv","final_ratio_tdjv")], by = "studyid",all.x=T, all.y=T)
+all_wide<-merge(all_wide, tdja_wide[,c("studyid","comp_tdja","final_ratio_tdja")], by = "studyid",all.x=T, all.y=T)
+
+chisq.test(table(all_wide$comp_amc, all_wide$comp_apc))
+chisq.test(table(all_wide$comp_amc, all_wide$comp_tdja))
+chisq.test(table(all_wide$comp_amc, all_wide$comp_tdjv))
+
+chisq.test(table(all_wide$comp_apc, all_wide$comp_tdja))
+chisq.test(table(all_wide$comp_apc, all_wide$comp_tdjv))
+
+chisq.test(table(all_wide$comp_tdja, all_wide$comp_tdjv))
+
+###z score lmes###
+zcols<-c("studyid","gender","DX", "age","task", "final_ratio_amc","final_ratio_apc","final_ratio_tdjv","final_ratio_tdja")
+
+all_wide<-all_wide[,zcols]
+all_wide$final_ratio_amc<-as.numeric(all_wide$final_ratio_amc)
+all_wide$final_ratio_apc<-as.numeric(all_wide$final_ratio_apc)
+all_wide$final_ratio_tdja<-as.numeric(all_wide$final_ratio_tdja)
+all_wide$final_ratio_tdjv<-as.numeric(all_wide$final_ratio_tdjv)
+
+all_wide$amc_z<-scale(all_wide$final_ratio_amc)
+all_wide$apc_z<-scale(all_wide$final_ratio_apc)
+all_wide$tdja_z<-scale(all_wide$final_ratio_tdja)
+all_wide$tdjv_z<-scale(all_wide$final_ratio_tdjv)
+all_wide$DX2<-DX2sca(all_wide$DX)
+
+library(nlme)
+
+summary(lme(amc_z~apc_z*DX2, random = ~1|studyid, data=all_wide, na.action=na.omit))
+summary(lme(amc_z~tdja_z*DX2, random = ~1|studyid, data=all_wide, na.action=na.omit))
+summary(lme(amc_z~tdjv_z*DX2, random = ~1|studyid, data=all_wide, na.action=na.omit))
+
+summary(lme(apc_z~tdja_z*DX2, random = ~1|studyid, data=all_wide, na.action=na.omit))
+summary(lme(apc_z~tdjv_z*DX2, random = ~1|studyid, data=all_wide, na.action=na.omit))
+
+summary(lme(tdja_z~tdjv_z*DX2, random = ~1|studyid, data=all_wide, na.action=na.omit))
