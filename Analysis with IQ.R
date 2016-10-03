@@ -151,3 +151,88 @@ t.test(all_IQ[which(all_IQ$DX2=="22q"),"PIQ"], all_IQ[which(all_IQ$DX2=="sca"),"
 wilcox.test(all_IQ[which(all_IQ$DX2=="22q"),"FSIQ"], all_IQ[which(all_IQ$DX2=="sca"),"FSIQ"])
 wilcox.test(all_IQ[which(all_IQ$DX2=="22q"),"VIQ"], all_IQ[which(all_IQ$DX2=="sca"),"VIQ"])
 wilcox.test(all_IQ[which(all_IQ$DX2=="22q"),"PIQ"], all_IQ[which(all_IQ$DX2=="sca"),"PIQ"])
+
+###plot based on amc_ml_iq etc., but clean out that weird 200 first!
+
+###AMC
+amc_ml_iq[which(amc_ml_iq$PIQ>150),"PIQ"]<-NA
+
+plot(amc_ml_iq[which(amc_ml_iq$DX2 == "1td"), "PIQ"], amc_ml_iq[which(amc_ml_iq$DX2 == "1td"), "final_ratio"], main = "AMC Final Ratio vs PRI", xlab="PRI", ylab="Max Ratio", col="blue", pch=19, xlim=c(40, 150), ylim = c(0.50, 1.0))
+points(amc_ml_iq[which(amc_ml_iq$DX2 == "22q"), "PIQ"], amc_ml_iq[which(amc_ml_iq$DX2 == "22q"), "final_ratio"], col="hotpink", pch=19)
+points(amc_ml_iq[which(amc_ml_iq$DX2 == "sca"), "PIQ"], amc_ml_iq[which(amc_ml_iq$DX2 == "sca"), "final_ratio"], col="darkgreen", pch=19)
+abline(lm(final_ratio~PIQ, data=amc_ml_iq[which(amc_ml_iq$DX2 == "1td"), ]), col="blue")
+abline(lm(final_ratio~PIQ, data=amc_ml_iq[which(amc_ml_iq$DX2 == "22q"), ]), col="hotpink")
+abline(lm(final_ratio~PIQ, data=amc_ml_iq[which(amc_ml_iq$DX2 == "sca"), ]), col="darkgreen")
+abline(lm(final_ratio~PIQ, data=amc_ml_iq), col="black", lty=2)
+
+quartz()
+plot(amc_ml_iq[which(amc_ml_iq$DX2 == "1td"), "age"], amc_ml_iq[which(amc_ml_iq$DX2 == "1td"), "final_ratio"], main = "AMC Final Ratio vs Age", xlab="Age (months)", ylab="Max Ratio", col="blue", pch=19, xlim=c(80, 190), ylim = c(0.5, 1.0))
+points(amc_ml_iq[which(amc_ml_iq$DX2 == "22q"), "age"], amc_ml_iq[which(amc_ml_iq$DX2 == "22q"), "final_ratio"], col="hotpink", pch=19,xlim=c(80, 190), ylim = c(0.45, 1.05))
+points(amc_ml_iq[which(amc_ml_iq$DX2 == "sca"), "age"], amc_ml_iq[which(amc_ml_iq$DX2 == "sca"), "final_ratio"], col="darkgreen", pch=19)
+abline(lm(final_ratio~age, data=amc_ml_iq[which(amc_ml_iq$DX2 == "1td"), ]), col="blue")
+abline(lm(final_ratio~age, data=amc_ml_iq[which(amc_ml_iq$DX2 == "22q"), ]), col="hotpink")
+abline(lm(final_ratio~age, data=amc_ml_iq[which(amc_ml_iq$DX2 == "sca"), ]), col="darkgreen")
+abline(lm(final_ratio~age, data=amc_ml_iq), col="black", lty=2)
+
+###APC
+apc_ml_iq[which(apc_ml_iq$PIQ>150),"PIQ"]<-NA
+
+quartz()
+plot(apc_ml_iq[which(apc_ml_iq$DX2 == "1td"), "PIQ"], apc_ml_iq[which(apc_ml_iq$DX2 == "1td"), "final_ratio"], main = "APC Final Ratio vs PRI", xlab="PRI", ylab="Max Ratio", col="blue", pch=19, xlim=c(40, 150), ylim = c(0.5, 1.0))
+points(apc_ml_iq[which(apc_ml_iq$DX2 == "22q"), "PIQ"], apc_ml_iq[which(apc_ml_iq$DX2 == "22q"), "final_ratio"], col="hotpink", pch=19)
+points(apc_ml_iq[which(apc_ml_iq$DX2 == "sca"), "PIQ"], apc_ml_iq[which(apc_ml_iq$DX2 == "sca"), "final_ratio"], col="darkgreen", pch=19)
+abline(lm(final_ratio~PIQ, data=apc_ml_iq[which(apc_ml_iq$DX2 == "1td"), ]), col="blue")
+abline(lm(final_ratio~PIQ, data=apc_ml_iq[which(apc_ml_iq$DX2 == "22q"), ]), col="hotpink")
+abline(lm(final_ratio~PIQ, data=apc_ml_iq[which(apc_ml_iq$DX2 == "sca"), ]), col="darkgreen")
+abline(lm(final_ratio~PIQ, data=apc_ml_iq), col="black", lty=2)
+
+quartz()
+plot(apc_ml_iq[which(apc_ml_iq$DX2 == "1td"), "age"], apc_ml_iq[which(apc_ml_iq$DX2 == "1td"), "final_ratio"], main = "APC Final Ratio vs Age", xlab="Age (months)", ylab="Max Ratio", col="blue", pch=19, xlim=c(80, 190), ylim = c(0.45, 1.05))
+points(apc_ml_iq[which(apc_ml_iq$DX2 == "22q"), "age"], apc_ml_iq[which(apc_ml_iq$DX2 == "22q"), "final_ratio"], col="hotpink", pch=19, xlim=c(80, 190), ylim = c(0.5, 1.0))
+points(apc_ml_iq[which(apc_ml_iq$DX2 == "sca"), "age"], apc_ml_iq[which(apc_ml_iq$DX2 == "sca"), "final_ratio"], col="darkgreen", pch=19)
+abline(lm(final_ratio~age, data=apc_ml_iq[which(apc_ml_iq$DX2 == "1td"), ]), col="blue")
+abline(lm(final_ratio~age, data=apc_ml_iq[which(apc_ml_iq$DX2 == "22q"), ]), col="hotpink")
+abline(lm(final_ratio~age, data=apc_ml_iq[which(apc_ml_iq$DX2 == "sca"), ]), col="darkgreen")
+abline(lm(final_ratio~age, data=apc_ml_iq), col="black", lty=2)
+
+###TDJ-A
+tdja_ml_iq[which(tdja_ml_iq$PIQ>150),"PIQ"]<-NA
+
+quartz()
+plot(tdja_ml_iq[which(tdja_ml_iq$DX2 == "1td"), "PIQ"], tdja_ml_iq[which(tdja_ml_iq$DX2 == "1td"), "final_ratio"], main = "TDJ-A Final Ratio vs PRI", xlab="PRI", ylab="Max Ratio", col="blue", pch=19, xlim=c(40, 150), ylim = c(0.45, 1.05))
+points(tdja_ml_iq[which(tdja_ml_iq$DX2 == "22q"), "PIQ"], tdja_ml_iq[which(tdja_ml_iq$DX2 == "22q"), "final_ratio"], col="hotpink", pch=19)
+points(tdja_ml_iq[which(tdja_ml_iq$DX2 == "sca"), "PIQ"], tdja_ml_iq[which(tdja_ml_iq$DX2 == "sca"), "final_ratio"], col="darkgreen", pch=19)
+abline(lm(final_ratio~PIQ, data=tdja_ml_iq[which(tdja_ml_iq$DX2 == "1td"), ]), col="blue")
+abline(lm(final_ratio~PIQ, data=tdja_ml_iq[which(tdja_ml_iq$DX2 == "22q"), ]), col="hotpink")
+abline(lm(final_ratio~PIQ, data=tdja_ml_iq[which(tdja_ml_iq$DX2 == "sca"), ]), col="darkgreen")
+abline(lm(final_ratio~PIQ, data=tdja_ml_iq), col="black", lty=2)
+
+quartz()
+plot(tdja_ml_iq[which(tdja_ml_iq$DX2 == "1td"), "age"], tdja_ml_iq[which(tdja_ml_iq$DX2 == "1td"), "final_ratio"], main = "TDJ-A Final Ratio vs Age", xlab="Age (months)", ylab="Max Ratio", col="blue", pch=19, xlim=c(80, 190), ylim = c(0.45, 1.05))
+points(tdja_ml_iq[which(tdja_ml_iq$DX2 == "22q"), "age"], tdja_ml_iq[which(tdja_ml_iq$DX2 == "22q"), "final_ratio"], col="hotpink", pch=19)
+points(tdja_ml_iq[which(tdja_ml_iq$DX2 == "sca"), "age"], tdja_ml_iq[which(tdja_ml_iq$DX2 == "sca"), "final_ratio"], col="darkgreen", pch=19)
+abline(lm(final_ratio~age, data=tdja_ml_iq[which(tdja_ml_iq$DX2 == "1td"), ]), col="blue")
+abline(lm(final_ratio~age, data=tdja_ml_iq[which(tdja_ml_iq$DX2 == "22q"), ]), col="hotpink")
+abline(lm(final_ratio~age, data=tdja_ml_iq[which(tdja_ml_iq$DX2 == "sca"), ]), col="darkgreen")
+abline(lm(final_ratio~age, data=tdja_ml_iq), col="black", lty=2)
+
+###TDJ-V
+tdjv_ml_iq[which(tdjv_ml_iq$PIQ>150),"PIQ"]<-NA
+
+quartz()
+plot(tdjv_ml_iq[which(tdjv_ml_iq$DX2 == "1td"), "PIQ"], tdjv_ml_iq[which(tdjv_ml_iq$DX2 == "1td"), "final_ratio"], main = "TDJ-V Final Ratio vs PRI", xlab="PRI", ylab="Max Ratio", col="blue", pch=19, xlim=c(40, 155), ylim = c(0.45, 1.05))
+points(tdjv_ml_iq[which(tdjv_ml_iq$DX2 == "22q"), "PIQ"], tdjv_ml_iq[which(tdjv_ml_iq$DX2 == "22q"), "final_ratio"], col="hotpink", pch=19)
+points(tdjv_ml_iq[which(tdjv_ml_iq$DX2 == "sca"), "PIQ"], tdjv_ml_iq[which(tdjv_ml_iq$DX2 == "sca"), "final_ratio"], col="darkgreen", pch=19)
+abline(lm(final_ratio~PIQ, data=tdjv_ml_iq[which(tdjv_ml_iq$DX2 == "1td"), ]), col="blue")
+abline(lm(final_ratio~PIQ, data=tdjv_ml_iq[which(tdjv_ml_iq$DX2 == "22q"), ]), col="hotpink")
+abline(lm(final_ratio~PIQ, data=tdjv_ml_iq[which(tdjv_ml_iq$DX2 == "sca"), ]), col="darkgreen")
+abline(lm(final_ratio~PIQ, data=tdjv_ml_iq), col="black", lty=2)
+
+quartz()
+plot(tdjv_ml_iq[which(tdjv_ml_iq$DX2 == "1td"), "age"], tdjv_ml_iq[which(tdjv_ml_iq$DX2 == "1td"), "final_ratio"], main = "TDJ-V Final Ratio vs Age", xlab="Age (months)", ylab="Max Ratio", col="blue", pch=19, xlim=c(80, 190), ylim = c(0.45, 1.05))
+points(tdjv_ml_iq[which(tdjv_ml_iq$DX2 == "22q"), "age"], tdjv_ml_iq[which(tdjv_ml_iq$DX2 == "22q"), "final_ratio"], col="hotpink", pch=19)
+points(tdjv_ml_iq[which(tdjv_ml_iq$DX2 == "sca"), "age"], tdjv_ml_iq[which(tdjv_ml_iq$DX2 == "sca"), "final_ratio"], col="darkgreen", pch=19)
+abline(lm(final_ratio~age, data=tdjv_ml_iq[which(tdjv_ml_iq$DX2 == "1td"), ]), col="blue")
+abline(lm(final_ratio~age, data=tdjv_ml_iq[which(tdjv_ml_iq$DX2 == "22q"), ]), col="hotpink")
+abline(lm(final_ratio~age, data=tdjv_ml_iq[which(tdjv_ml_iq$DX2 == "sca"), ]), col="darkgreen")
+abline(lm(final_ratio~age, data=tdjv_ml_iq), col="black", lty=2)
