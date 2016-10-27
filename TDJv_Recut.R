@@ -90,6 +90,7 @@ chisq.test(nc_table)
 ###desc for table###
 library(psych)
 describeBy(max_lev$final_ratio2, group=max_lev$DX2)
+describeBy(max_lev$final_ratio2, group=max_lev$DX)
 
 #Output
 hist(max_lev$final_ratio, main = "Histogram of Final Ratios Achieved by Completers", col="gray", ylab = "Number achieving of 89 total completers", xlab="ratio achieved")

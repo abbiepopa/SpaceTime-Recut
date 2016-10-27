@@ -95,6 +95,7 @@ chisq.test(nc_table)
 ###For table###
 library(psych)
 describeBy(max_lev$final_ratio, group=max_lev$DX3)
+describeBy(max_lev$final_ratio, group=max_lev$DX2)
 
 ###Kruskal-Wallis Test###
 kruskal.test(final_ratio~DX2, data=max_lev)

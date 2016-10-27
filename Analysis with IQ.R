@@ -236,3 +236,6 @@ abline(lm(final_ratio~age, data=tdjv_ml_iq[which(tdjv_ml_iq$DX2 == "1td"), ]), c
 abline(lm(final_ratio~age, data=tdjv_ml_iq[which(tdjv_ml_iq$DX2 == "22q"), ]), col="hotpink")
 abline(lm(final_ratio~age, data=tdjv_ml_iq[which(tdjv_ml_iq$DX2 == "sca"), ]), col="darkgreen")
 abline(lm(final_ratio~age, data=tdjv_ml_iq), col="black", lty=2)
+
+##SCA IQ test
+t.test(all_IQ[which(all_IQ$DX == "xxx"),"FSIQ"], all_IQ[which(all_IQ$DX == "xxy"), "FSIQ"])
