@@ -10,22 +10,22 @@ task_ag<-function(d){
 	return(unique(d))
 }
 
-setwd("~/Documents/Lab/AMC APC TDJ/Data")
+setwd("~/Documents/cycle2/spacetime/data")
 amc<-read.csv("amc_data_20150702.csv")
 amc<-task_ag(amc)
 
 
-setwd("~/Documents/Lab/AMC APC TDJ/Data")
+setwd("~/Documents/cycle2/spacetime/data")
 apc<-read.table("apc_data_20150702.txt", header=T)
 apc<- task_ag(apc)
 
 
-setwd("~/Documents/Lab/AMC APC TDJ/Data")
+setwd("~/Documents/cycle2/spacetime/data")
 tdjv<-read.csv("tdj-v_data_20150702.txt", header=T)
 tdjv<- task_ag(tdjv)
 
 
-setwd("~/Documents/Lab/AMC APC TDJ/Data")
+setwd("~/Documents/cycle2/spacetime/data")
 tdja<-read.csv("tdj-a_data_20150702.csv", header=T)
 tdja<-task_ag(tdja)
 
@@ -90,19 +90,19 @@ task<-function(d){
 	return(d)
 }
 
-setwd("~/Documents/Lab/AMC APC TDJ/Data")
+setwd("~/Documents/cycle2/spacetime/data")
 amc<-read.csv("amc_data_20150702.csv")
 amc<-task(amc)
 
-setwd("~/Documents/Lab/AMC APC TDJ/Data")
+setwd("~/Documents/cycle2/spacetime/data")
 apc<-read.table("apc_data_20150702.txt", header=T)
 apc<- task(apc)
 
-setwd("~/Documents/Lab/AMC APC TDJ/Data")
+setwd("~/Documents/cycle2/spacetime/data")
 tdjv<-read.csv("tdj-v_data_20150702.txt", header=T)
 tdjv<- task(tdjv)
 
-setwd("~/Documents/Lab/AMC APC TDJ/Data")
+setwd("~/Documents/cycle2/spacetime/data")
 tdja<-read.csv("tdj-a_data_20150702.csv", header=T)
 tdja<-task(tdja)
 
@@ -188,3 +188,4 @@ missingFSIQ<-merge(missingFSIQ, cabil_all, by="studyid")
 write.csv(cabil_all,"all_amcapctdj_studyids.csv",row.names=F)
 write.csv(missingFSIQ, "amcapctdj_studyids_missingIQfromCycle2.csv",row.names=F)
 write.csv(neverFSIQ,"amcapctdj_studyids_noIQ.csv",row.names=F)
+write.csv(all_IQ, "all_IQ.csv", row.names=F)
